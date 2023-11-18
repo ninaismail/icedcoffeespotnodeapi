@@ -1,0 +1,24 @@
+{
+  "name": "icedcoffeespotnodeapi",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1"
+  },
+  "devDependencies": {
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.1",
+    "nodemon": "^3.0.1"
+  }
+}
