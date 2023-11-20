@@ -11,12 +11,16 @@ router.post("/register", async (req, res) => {
 
   const usernameExists = await User.findOne({ username: req.body.username });
   const emailExists = await User.findOne({ email: req.body.email });
+  const phoneExists = await User.findOne({ phone: req.body.phone });
   
   if (usernameExists) {
     errors.push({ message: "Username already exists" });
   }
   if (emailExists) {
     errors.push({ message: "Email already exists" });
+  }
+  if (phoneExists) {
+    errors.push({ message: "Phone Number already exists" });
   }
 
   if (!req.body.name) {
@@ -39,6 +43,12 @@ router.post("/register", async (req, res) => {
     errors.push({message:"Password is invalid."});
   }
   
+  if (!req.body.phone) {
+    errors.push({message:"Phone is required."});
+  } else if (req.body.phone.length < 8) {
+    errors.push({message:"Phone is invalid."});
+  }
+
   if (errors.length > 0) {
     res.status(400).json({ errors });
   }
@@ -47,6 +57,7 @@ router.post("/register", async (req, res) => {
       name: req.body.name,
       username: req.body.username,
       email: req.body.email,
+      phone: req.body.phone,
       password: CryptoJS.AES.encrypt(
         req.body.password,
         process.env.SEC_PASS_KEY
