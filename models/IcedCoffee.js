@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const icedCoffeeSchema = new mongoose.Schema({
+  _id: {
+    type: Number,
+    required: true,
+    unique: true
+  }, // Use your desired type for _id
   title: {
     type: String,
     required: true,
