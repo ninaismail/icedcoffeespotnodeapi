@@ -2,7 +2,9 @@ require('dotenv').config();
 const cors = require("cors");
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./routes/routes');
+const authRoute = require('./routes/auth');
+const icedCoffeeRoute = require('./routes/icedcoffee');
+const orderRoute = require('./routes/order');
 const mongoString = process.env.DATABASE_URL;
 
 mongoose.connect(mongoString);
@@ -19,7 +21,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', routes)
+app.use('/api/auth', authRoute)
+app.use('/api/icedcoffee', icedCoffeeRoute)
+app.use('/api/order', orderRoute)
 
 app.listen(3000, () => {
     console.log(`Server Started at ${3000}`)
