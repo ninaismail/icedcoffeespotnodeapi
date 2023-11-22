@@ -104,10 +104,14 @@ router.post('/login', async (req, res) => {
       process.env.JWT_SEC,
       { expiresIn: "3d" }
     );
-
+    const expiryDate = new Date(Date.now() + 3600000); // 1 hour for the cookie to expire
     // we should not show the hashed password to anyone
     const { password, ...others } = user._doc;
-    res.status(200).json({ ...others, accessToken });
+    res
+    .cookie('access_token', accessToken, { httpOnly: true, expires: expiryDate })
+    .status(200)
+    .json({...others,accessToken});
+    // res.status(200).json({ ...others, accessToken });
   } catch (err) {
     console.error(err);
     res.status(500).json(err.message || "Internal Server Error");
