@@ -9,13 +9,9 @@ const jwt = require("jsonwebtoken");
 router.post("/register", async (req, res) => {
   const errors = [];
 
-  const usernameExists = await User.findOne({ username: req.body.username });
   const emailExists = await User.findOne({ email: req.body.email });
   const phoneExists = await User.findOne({ phone: req.body.phone });
 
-  if (usernameExists) {
-    errors.push({ message: "Username already exists" });
-  }
   if (emailExists) {
     errors.push({ message: "Email already exists" });
   }
@@ -25,10 +21,6 @@ router.post("/register", async (req, res) => {
 
   if (!req.body.name) {
     errors.push({ message: "Name is required." });
-  }
-
-  if (!req.body.username) {
-    errors.push({ message: "Username is required." });
   }
 
   if (!req.body.email) {
@@ -55,7 +47,6 @@ router.post("/register", async (req, res) => {
 
   const newUser = new User({
     name: req.body.name,
-    username: req.body.username,
     email: req.body.email,
     phone: req.body.phone,
     password: CryptoJS.AES.encrypt(
