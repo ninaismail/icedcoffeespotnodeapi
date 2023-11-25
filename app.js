@@ -3,13 +3,14 @@ require('dotenv').config();
 const cors = require("cors");
 const express = require('express');
 const mongoose = require('mongoose');
+const passportSetup = require("./passport");
+const passport = require("passport");
 const authRoute = require('./routes/auth');
 const gougleAuthRoute = require('./routes/googleauth');
 const icedCoffeeRoute = require('./routes/icedcoffee');
 const orderRoute = require('./routes/order');
 const mongoString = process.env.DATABASE_URL;
-const passportSetup = require("./passport");
-const passport = require("passport");
+
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
@@ -25,7 +26,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(
-  cookieSession({ name: "session", keys: ["myicedcoffee"], maxAge: 24 * 60 * 60 * 100 })
+  cookieSession({ name: "user", keys: ["myicedcoffee"], maxAge: 24 * 60 * 60 * 100 })
 );
 
 app.use(passport.initialize());
