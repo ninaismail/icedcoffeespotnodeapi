@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      return res.status(401).json("Wrong Email");
+      return res.status(401).json("Invalid email and password, user not found.");
     }
 
     const hashedPassword = CryptoJS.AES.decrypt(
