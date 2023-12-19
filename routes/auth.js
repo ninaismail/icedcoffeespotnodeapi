@@ -88,7 +88,7 @@ router.post('/login', async (req, res) => {
     // for example if this user wants to delete a user we check if it's id is in the token and if he is an admn so he can do that 
     const accessToken = jwt.sign(
       {
-        id: user._id,
+        id: user._id.toString(),
         isAdmin: user.isAdmin,
       },
       // this means that after 3 days we can not access the use token anymore so the user has to login again
