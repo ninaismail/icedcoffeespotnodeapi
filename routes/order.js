@@ -8,7 +8,7 @@ const {
 } = require("./verifyToken");
 
 //Post Method
-router.post('/', verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
   const errors = [];
 
   if (!req.body.address) {
